@@ -64,13 +64,15 @@ namespace YouTubeRIP
                 throw new ArgumentException("Введено не целочисленное значение");
             }
             Task.Run(() => { while (true) { Console.Clear(); Thread.Sleep(10000); } });
-            Task[] tasks = new Task[numOfTasks];
+            Task[] tasks = new Task[queue.Count()];
             SemaphoreSlim semaphore = new SemaphoreSlim(numOfTasks);
             while (queue.Count() != 0)
             {
-                for (int i = 0; i < Math.Min(numOfTasks, queue.Count); i++)
+                for (int i = 0; i < queue.Count; i++)
                 {
                     int localI = i;
+                    if (localI >= numOfTasks)
+                        localI %= numOfTasks;
                     tasks[i] = Task.Run(async () =>
                     {
                         await semaphore.WaitAsync(); // Ожидание свободного места в семафоре

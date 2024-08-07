@@ -17,3 +17,4 @@ C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\obj\Release\net8.0\refint\You
 C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\obj\Release\net8.0\YouTubeRIP.pdb
 C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\obj\Release\net8.0\YouTubeRIP.genruntimeconfig.cache
 C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\obj\Release\net8.0\ref\YouTubeRIP.dll
+C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\obj\Release\net8.0\YouTubeRIP.sourcelink.json

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YouTubeRIP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca0871a3820ac0245c85ee8c10eb2cbf6aaae224")]
 [assembly: System.Reflection.AssemblyProductAttribute("YouTubeRIP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YouTubeRIP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
