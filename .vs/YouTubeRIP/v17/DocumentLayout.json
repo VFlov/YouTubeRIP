@@ -1,0 +1,74 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|c:\\users\\vsp\\documents\\repos\\youtuberip\\youtuberip\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|solutionrelative:youtuberip\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|c:\\users\\vsp\\documents\\repos\\youtuberip\\youtuberip\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|solutionrelative:youtuberip\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|c:\\users\\vsp\\documents\\repos\\youtuberip\\youtuberip\\youtuberip.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CC4CDF44-4212-484B-B30F-93B5A13A6975}|YouTubeRIP\\YouTubeRIP.csproj|solutionrelative:youtuberip\\youtuberip.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "YouTubeRIP.csproj",
+              "DocumentMoniker": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\YouTubeRIP.csproj",
+              "RelativeDocumentMoniker": "YouTubeRIP\\YouTubeRIP.csproj",
+              "ToolTip": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\YouTubeRIP.csproj",
+              "RelativeToolTip": "YouTubeRIP\\YouTubeRIP.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-08-06T08:20:28.461Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Worker.cs",
+              "DocumentMoniker": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\Worker.cs",
+              "RelativeDocumentMoniker": "YouTubeRIP\\Worker.cs",
+              "ToolTip": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\Worker.cs",
+              "RelativeToolTip": "YouTubeRIP\\Worker.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAmwJgAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-06T05:45:03.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\Program.cs",
+              "RelativeDocumentMoniker": "YouTubeRIP\\Program.cs",
+              "ToolTip": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP\\Program.cs",
+              "RelativeToolTip": "YouTubeRIP\\Program.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwC4AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-06T05:42:39.547Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeRIP", "YouTubeRIP\YouTubeRIP.csproj", "{CC4CDF44-4212-484B-B30F-93B5A13A6975}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC4CDF44-4212-484B-B30F-93B5A13A6975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4CDF44-4212-484B-B30F-93B5A13A6975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4CDF44-4212-484B-B30F-93B5A13A6975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4CDF44-4212-484B-B30F-93B5A13A6975}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6151EAFE-3C3B-450E-8641-8F3D6C0B7966}
+	EndGlobalSection
+EndGlobal
