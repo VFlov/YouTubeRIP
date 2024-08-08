@@ -16,6 +16,7 @@ namespace YouTubeRIP
         string Url { get; set; }
         readonly string ResultDirectoryName = "Downloaded&Merged";
         static object lockObject = new object();
+        static object lockObject2 = new object();
         public Worker(int id, string url) 
         {
             Id = id;
@@ -61,27 +62,32 @@ namespace YouTubeRIP
             Task.WaitAll(Task.Run(() => DownloadFile(bitrate.Uri, normalizeName)));
             return normalizeName;
         }
+        //ПРОВЕРИТЬ LOCK
         public void Merger(string videoName, string audioName)
         {
-            string ffmpegCommand = $"-i \"{Directory.GetCurrentDirectory()}\\{videoName}\" " +
-                $"-i \"{Directory.GetCurrentDirectory()}\\{audioName}\" " +
-                $"-c copy \"{Directory.GetCurrentDirectory()}\\{ResultDirectoryName}\\{videoName.Replace(".webm", ".mp4")}\"";
-            string ffmpegPath = Directory.GetCurrentDirectory() + "\\ffmpeg.exe";
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "ffmpeg.exe";
-            /*
-            startInfo.RedirectStandardInput = true;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.StandardInputEncoding = System.Text.Encoding.GetEncoding(65001);
-            startInfo.StandardOutputEncoding = System.Text.Encoding.GetEncoding(65001);
-            */
-            startInfo.Arguments = ffmpegCommand;
-            process.StartInfo = startInfo;
-            process.Start();
+            lock (lockObject2)
+            {
+                string ffmpegCommand = $"-i \"{Directory.GetCurrentDirectory()}\\{videoName}\" " +
+                    $"-i \"{Directory.GetCurrentDirectory()}\\{audioName}\" " +
+                    $"-c copy \"{Directory.GetCurrentDirectory()}\\{ResultDirectoryName}\\{videoName.Replace(".webm", ".mp4")}\"";
+                string ffmpegPath = Directory.GetCurrentDirectory() + "\\ffmpeg.exe";
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "ffmpeg.exe";
+                /*
+                startInfo.RedirectStandardInput = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.StandardInputEncoding = System.Text.Encoding.GetEncoding(65001);
+                startInfo.StandardOutputEncoding = System.Text.Encoding.GetEncoding(65001);
+                */
+                startInfo.Arguments = ffmpegCommand;
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+            }
         }
-        async Task DownloadFile2(string url, string fileName)
+            async Task DownloadFile2(string url, string fileName)
         {
             Console.Clear();
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
