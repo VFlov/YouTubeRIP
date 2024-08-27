@@ -14,7 +14,7 @@ namespace YouTubeRIP
     {
         int Id { get; set;}
         string Url { get; set; }
-        readonly string ResultDirectoryName = "Downloaded&Merged";
+        
         static object lockObject = new object();
         static object lockObject2 = new object();
         public Worker(int id, string url) 
@@ -69,7 +69,7 @@ namespace YouTubeRIP
             {
                 string ffmpegCommand = $"-i \"{Directory.GetCurrentDirectory()}\\{videoName}\" " +
                     $"-i \"{Directory.GetCurrentDirectory()}\\{audioName}\" " +
-                    $"-c copy \"{Directory.GetCurrentDirectory()}\\{ResultDirectoryName}\\{videoName.Replace(".webm", ".mp4")}\"";
+                    $"-c copy \"{Directory.GetCurrentDirectory()}\\{Program.ResultDirectoryName}\\{videoName.Replace(".webm", ".mp4")}\"";
                 string ffmpegPath = Directory.GetCurrentDirectory() + "\\ffmpeg.exe";
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -87,7 +87,7 @@ namespace YouTubeRIP
                 process.WaitForExit();
             }
         }
-            async Task DownloadFile2(string url, string fileName)
+        async Task DownloadFile2(string url, string fileName)
         {
             Console.Clear();
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
