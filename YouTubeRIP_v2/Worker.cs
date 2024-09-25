@@ -14,19 +14,25 @@ namespace YouTubeRIP_v2
     public class Worker
     {
         public int Id { get; private set; }
-        private string Url { get;  set; }
+        private string Url { get; set; }
         public string VideoName { get; private set; }
-        public string DownloadSpeedStr { get; private set; }
-        public string FileSize { get; set; }
-        public string FileDownloadedSize { get; set; }
-        public int DownloadPercent { get; private set; }
+        public string AudioName { get; private set; }
+        public string DownloadVideoSpeedStr { get; private set; }
+        public string DownloadAudioSpeedStr { get; private set; }
+        public string VideoFileSize { get; set; }
+        public string AudioFileSize { get; set; }
+        public string VideoFileDownloadedSize { get; set; }
+        public string AudioFileDownloadedSize { get; set; }
+        public string VideoDownloadedPercent { get; private set; }
+        public string AudioDownloadedPercent { get; private set; }
+
         private static object Locker = new object();
-        public Worker(int id, string url) 
+        public Worker(int id, string url)
         {
             Id = id;
-            Url = url;  
+            Url = url;
         }
-        public async void Awake()
+        public async Task Awake()
         {
             var videoInfos = YouTube.Default.GetAllVideos(Url);
             Task<string> videoName = Task.Run(() => VideoDownload(videoInfos));
@@ -53,13 +59,13 @@ namespace YouTubeRIP_v2
         {
             lock (Locker)
             {
-                string ffmpegCommand = $"-i \"{Directory.GetCurrentDirectory()}\\{videoName}\" " +
-                    $"-i \"{Directory.GetCurrentDirectory()}\\{audioName}\" " +
+                string ffmpegCommand = $"-i \"{Directory.GetCurrentDirectory()}\\{Program.WaitForDownloadDirectory}\\{videoName}\" " +
+                    $"-i \"{Directory.GetCurrentDirectory()}\\{Program.WaitForDownloadDirectory}\\{audioName}\" " +
                     $"-c copy \"{Directory.GetCurrentDirectory()}\\{Program.ResultDirectoryName}\\{videoName.Replace(".webm", ".mp4")}\"";
                 string ffmpegPath = Directory.GetCurrentDirectory() + "\\ffmpeg.exe";
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                 // startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 startInfo.FileName = "ffmpeg.exe";
                 /*
                 startInfo.RedirectStandardInput = true;
@@ -75,17 +81,16 @@ namespace YouTubeRIP_v2
         }
         async Task DownloadFile(string url, string fileName)
         {
+            fileName = Program.WaitForDownloadDirectory +"\\" +fileName;
             long totalBytesToDownload = 0;
             long currentBytesDownloaded = 0;
             long lastBytesDownloaded = 0;
             DateTime lastUpdate = DateTime.Now;
             bool imVideoDownload = false;
             if (fileName.Contains(".mp4") || fileName.Contains(".webm"))
-            {
                 imVideoDownload = true;
-            }
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
 
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
                 totalBytesToDownload = response.ContentLength;
@@ -101,8 +106,16 @@ namespace YouTubeRIP_v2
                     return;
                 // Устанавливаем заголовки для запроса
                 client.Headers.Add(HttpRequestHeader.Range, $"bytes={currentBytesDownloaded}-");
-                FileSize = FormatFileSize(totalBytesToDownload);
-                FileDownloadedSize = FormatFileSize(currentBytesDownloaded);
+                if (imVideoDownload)
+                {
+                    VideoFileSize = FormatFileSize(totalBytesToDownload);
+                    VideoFileDownloadedSize = FormatFileSize(currentBytesDownloaded);
+                }
+                else
+                {
+                    AudioFileSize = FormatFileSize(totalBytesToDownload);
+                    AudioFileDownloadedSize = FormatFileSize(currentBytesDownloaded);
+                }
 
                 // Загружаем файл
                 using (var stream = await client.OpenReadTaskAsync(url))
@@ -119,13 +132,33 @@ namespace YouTubeRIP_v2
                             // Обновляем информацию о загрузке каждые 500 мс
                             if ((DateTime.Now - lastUpdate).TotalMilliseconds > 500)
                             {
-                                DownloadSpeedStr = FormatFileSize((currentBytesDownloaded - lastBytesDownloaded) / (DateTime.Now - lastUpdate).TotalSeconds);
-                                DownloadPercent = (int)(currentBytesDownloaded * 100 / totalBytesToDownload);
+                                if (imVideoDownload)
+                                {
+                                    VideoName = fileName;
+                                    DownloadVideoSpeedStr = FormatFileSize((currentBytesDownloaded - lastBytesDownloaded) / (DateTime.Now - lastUpdate).TotalSeconds);
+                                    VideoDownloadedPercent = (currentBytesDownloaded * 100 / totalBytesToDownload) + "%";
+                                }
+                                else
+                                {
+                                    AudioName = fileName;
+                                    DownloadAudioSpeedStr = FormatFileSize((currentBytesDownloaded - lastBytesDownloaded) / (DateTime.Now - lastUpdate).TotalSeconds);
+                                    AudioDownloadedPercent = (currentBytesDownloaded * 100 / totalBytesToDownload) + "%";
+                                }
                                 lastBytesDownloaded = currentBytesDownloaded;
                                 lastUpdate = DateTime.Now;
                             }
                         }
                     }
+                }
+                if (imVideoDownload)
+                {
+                    DownloadVideoSpeedStr = "Файл загружен";
+                    VideoDownloadedPercent = "Ожидание загрузки файла звука";
+                }
+                else 
+                {
+                    DownloadAudioSpeedStr = "Файл загружен";
+                    VideoDownloadedPercent = "Ожидание загрузки файла видео";
                 }
             }
         }

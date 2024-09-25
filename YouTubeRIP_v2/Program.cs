@@ -2,6 +2,8 @@
 {
     class Program
     {
+        public static string ResultDirectoryName = "Downloaded&Merged";
+        public static string WaitForDownloadDirectory = "DownloadFiles";
         static void Main()
         {
             Console.SetWindowSize(100, 30);
@@ -18,13 +20,15 @@
                 case "2":
                     {
                         Console.WriteLine("Введите ссылку на видео");
-                        FileDownload(Console.ReadLine(), true);
+                        string str = Console.ReadLine();
+                        FileDownload(str, true);
                         break;
                     }
                 case "3":
                     {
                         Console.WriteLine("Введите ссылку на видео");
-                        FileDownload(Console.ReadLine(), false);
+                        string str = Console.ReadLine();
+                        FileDownload(str, false);
                         break;
                     }
                 case "4":
@@ -46,7 +50,6 @@
                 Task.Delay(1000).Wait();
                 Environment.Exit(0);
             }
-            ResultDirectoryName = File.ReadAllText("Path.txt");
             string[] urls = File.ReadAllLines("Urls.txt");
             if (urls.Length == 0)
                 throw new ArgumentException("Urls.txt файл пуст");
@@ -60,9 +63,12 @@
             {
                 throw new ArgumentException("Введено не целочисленное значение");
             }
+            StartDownload(numOfTasks, queue);
+            /*
             Task.Run(() => { while (true) { Console.Clear(); Thread.Sleep(10000); } });
             Task[] tasks = new Task[queue.Count()];
             SemaphoreSlim semaphore = new SemaphoreSlim(numOfTasks);
+            Worker[] workers = new Worker[numOfTasks];
             while (queue.Count() != 0)
             {
                 for (int i = 0; i < queue.Count; i++)
@@ -75,41 +81,55 @@
                         await semaphore.WaitAsync(); // Ожидание свободного места в семафоре
                         try
                         {
-                            new Worker(localI, queue.Dequeue()).Awake();
+                            workers[i] = new Worker(localI, queue.Dequeue());
+                            workers[i].Awake();
                         }
                         finally
                         {
-                            semaphore.Release(); // Освобождение места в семафоре
+                            semaphore.Release(); 
                         }
                     });
                 }
-
-                Task.WaitAll(tasks);
             }
-
-            /*
-            if (int.TryParse(str, out int numOfTasks))
-            {
-                Task.Run(() => { while (true) { Console.Clear(); Thread.Sleep(10000); } });
-                Task[] tasks = new Task[numOfTasks];
-                while (queue.Count != 0)
-                {
-                    for (int i = 0; i < Math.Min(numOfTasks, queue.Count); i++)
-                    {
-                        int localI = i;
-                        tasks[i] = Task.Run(() => new Worker(localI, queue.Dequeue()).Awake());
-                    }
-                    Task.WaitAll(tasks);
-                }
-                //Для очистки консоли от артефактов
-                Task.WaitAll(tasks);
-                TheEndOfEvangelion();
-            }
-            else
-                throw new ArgumentException("Введено не целочисленное значение");
+            Task.Run(() => { while (true) { for (int i = 0; i < numOfTasks; i++) { ProgressDraw(workers[i], i); } } });
+            Task.WaitAll(tasks);
+            TheEndOfEvangelion();
             */
-
-
+        }
+        static async void StartDownload(int numOfTasks, Queue<string> urlsQueue)
+        {
+            Task.Run(() => { while (true) { Console.Clear(); Thread.Sleep(10000); } });
+            SemaphoreSlim semaphore = new SemaphoreSlim(numOfTasks);
+            Worker[] workers = new Worker[urlsQueue.Count()];
+            Task[] tasks = new Task[urlsQueue.Count()];
+            int urlsCount = urlsQueue.Count();
+            for (int i = 0; i < urlsCount; i++)
+            {
+                int localI = i;
+                if (localI >= numOfTasks)
+                    localI %= numOfTasks;
+                workers[i] = new Worker(localI, urlsQueue.Dequeue());
+            }
+            for (int i = 0; i < workers.Length; i++)
+            {
+                int localI = i;
+                tasks[i] = Task.Run(async () =>
+                {
+                    await semaphore.WaitAsync();
+                    try
+                    {
+                        await workers[localI].Awake();
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                });
+            }
+            Thread.Sleep(1000);
+            Task.Run(() => { while (true) { for (int i = 0; i < workers.Length; i++) { ProgressDraw(workers[i], workers[i].Id); } } });
+            Task.WaitAll(tasks);
+            TheEndOfEvangelion();
         }
         static void FileDownload(string url, bool thisVideo)
         {
@@ -117,10 +137,12 @@
                 throw new ArgumentNullException("Строка пустая");
             Worker worker = new(0, url);
             string fileName = "";
+            /*
             if (thisVideo)
                 fileName = worker.VideoDownload(url);
             else
                 fileName = worker.AudioDownload(url);
+            */
             Console.WriteLine("Файл " + fileName + " загружен");
         }
         static void MergerFiles(string video, string audio)
@@ -134,11 +156,6 @@
         static bool FirstStart()
         {
             bool thisFirstStart = false;
-            if (!File.Exists("Path.txt"))
-            {
-                thisFirstStart = true;
-                File.Create("Path.txt");
-            }
             if (!File.Exists("Urls.txt"))
             {
                 thisFirstStart = true;
@@ -146,11 +163,31 @@
             }
             if (!Directory.Exists(ResultDirectoryName))
             {
+                thisFirstStart = true;  
+                Directory.CreateDirectory(ResultDirectoryName);
+            }
+            if (!Directory.Exists(WaitForDownloadDirectory))
+            {
                 thisFirstStart = true;
-                Directory.CreateDirectory("Downloaded&Merged");
-                ResultDirectoryName = "Downloaded&Merged";
+                Directory.CreateDirectory(WaitForDownloadDirectory);
             }
             return thisFirstStart;
+        }
+        static void ProgressDraw(Worker worker, int id)
+        {
+            Console.SetCursorPosition(0, id * 5);
+            Console.WriteLine("========================================");
+            Console.WriteLine("Загрузка файла видео " + worker.VideoName);
+            Console.WriteLine($"Статус файла: " +
+            $"{worker.VideoFileSize}/{worker.VideoFileDownloadedSize}" +
+            $"({worker.VideoDownloadedPercent}) " + $"Скорость: " +
+            $"{(worker.DownloadVideoSpeedStr)} ");
+            Console.WriteLine("Загрузка файла звука " + worker.AudioName);
+            Console.WriteLine($"Статус файла: " +
+            $"{worker.AudioFileSize}/{worker.AudioFileDownloadedSize}" +
+            $"({worker.AudioDownloadedPercent}) " + $"Скорость: " +
+            $"{(worker.DownloadAudioSpeedStr)} ");
+            
         }
         static void TheEndOfEvangelion()
         {
@@ -159,7 +196,5 @@
             for (int i = 0; i < 100; i++)
                 Console.WriteLine("==> Программа завершила работу. Ссылки закончились <==");
         }
-        public static string ResultDirectoryName = "";
     }
-}
 }

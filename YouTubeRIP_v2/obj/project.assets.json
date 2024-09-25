@@ -4658,11 +4658,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
+      "projectUniqueName": "C:\\Users\\VSP\\Documents\\GitHub\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
       "projectName": "YouTubeRIP_v2",
-      "projectPath": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
+      "projectPath": "C:\\Users\\VSP\\Documents\\GitHub\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
       "packagesPath": "C:\\Users\\VSP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP_v2\\obj\\",
+      "outputPath": "C:\\Users\\VSP\\Documents\\GitHub\\YouTubeRIP\\YouTubeRIP_v2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\VSP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4722,7 +4722,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

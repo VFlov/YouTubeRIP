@@ -12,12 +12,12 @@ namespace YouTubeRIP
 {
     public class Worker
     {
-        int Id { get; set;}
+        int Id { get; set; }
         string Url { get; set; }
-        
+
         static object lockObject = new object();
         static object lockObject2 = new object();
-        public Worker(int id, string url) 
+        public Worker(int id, string url)
         {
             Id = id;
             Url = url;
@@ -27,8 +27,8 @@ namespace YouTubeRIP
             var videoInfos = YouTube.Default.GetAllVideos(Url);
             Task<string> videoName = Task.Run(() => VideoDownload(videoInfos));
             Task<string> audioName = Task.Run(() => AudioDownload(videoInfos));
-            Task.WaitAll(new Task[] { videoName, audioName});
-            Merger(videoName.Result,audioName.Result);
+            Task.WaitAll(new Task[] { videoName, audioName });
+            Merger(videoName.Result, audioName.Result);
         }
         string VideoDownload(IEnumerable<YouTubeVideo> youTubeVideos)
         {
@@ -137,12 +137,12 @@ namespace YouTubeRIP
                 imVideoDownload = true;
             }
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    totalBytesToDownload = response.ContentLength;
-                }
-            
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                totalBytesToDownload = response.ContentLength;
+            }
+
             using (var client = new WebClient())
             {
                 if (File.Exists(fileName))
@@ -151,8 +151,8 @@ namespace YouTubeRIP
                 }
                 if (totalBytesToDownload <= currentBytesDownloaded)
                     return;
-                    // Устанавливаем заголовки для запроса
-                    client.Headers.Add(HttpRequestHeader.Range, $"bytes={currentBytesDownloaded}-");
+                // Устанавливаем заголовки для запроса
+                client.Headers.Add(HttpRequestHeader.Range, $"bytes={currentBytesDownloaded}-");
 
                 // Загружаем файл
                 using (var stream = await client.OpenReadTaskAsync(url))
@@ -176,7 +176,7 @@ namespace YouTubeRIP
 
                                 // Выводим информацию о загрузке
                                 //Console.WriteLine($"Загружено: {FormatFileSize(currentBytesDownloaded)} / {FormatFileSize(totalBytesToDownload)} ({(currentBytesDownloaded * 100 / totalBytesToDownload):0.##}%) ({speedStr})");
-                                DisplayProgress(new DownloadInfo(currentBytesDownloaded, totalBytesToDownload, currentBytesDownloaded * 100 / totalBytesToDownload, imVideoDownload,fileName, downloadSpeed));
+                                DisplayProgress(new DownloadInfo(currentBytesDownloaded, totalBytesToDownload, currentBytesDownloaded * 100 / totalBytesToDownload, imVideoDownload, fileName, downloadSpeed));
                                 // Обновляем последние данные
                                 lastBytesDownloaded = currentBytesDownloaded;
                                 lastUpdate = DateTime.Now;
@@ -239,9 +239,9 @@ namespace YouTubeRIP
                     $"Мбит\\с");
                 }
             }
-        
+
         }
-        string NormalizeName(string name, bool imAudio) 
+        string NormalizeName(string name, bool imAudio)
         {
             if (imAudio)
                 name += ".aac";

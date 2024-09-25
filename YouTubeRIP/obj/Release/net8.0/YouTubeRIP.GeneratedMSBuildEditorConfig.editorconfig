@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = YouTubeRIP
-build_property.ProjectDir = C:\Users\VSP\Documents\Repos\YouTubeRIP\YouTubeRIP\
+build_property.ProjectDir = C:\Users\VSP\Documents\GitHub\YouTubeRIP\YouTubeRIP\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

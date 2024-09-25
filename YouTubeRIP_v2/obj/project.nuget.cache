@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7VsfekPhzTA=",
+  "dgSpecHash": "eq3UQsTZ5nA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\VSP\\Documents\\Repos\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
+  "projectFilePath": "C:\\Users\\VSP\\Documents\\GitHub\\YouTubeRIP\\YouTubeRIP_v2\\YouTubeRIP_v2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\VSP\\.nuget\\packages\\ffmpeg.net\\1.1.0\\ffmpeg.net.1.1.0.nupkg.sha512",
     "C:\\Users\\VSP\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

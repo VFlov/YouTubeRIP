@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeRIP", "YouTubeRIP\YouTubeRIP.csproj", "{CC4CDF44-4212-484B-B30F-93B5A13A6975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeRIP_v2", "YouTubeRIP_v2\YouTubeRIP_v2.csproj", "{21F35107-964F-44E0-A285-AFD136481459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeRIP_v2", "YouTubeRIP_v2\YouTubeRIP_v2.csproj", "{21F35107-964F-44E0-A285-AFD136481459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForTests", "ForTests\ForTests.csproj", "{5ACC9499-6E0C-4729-9656-EDBFE2E48867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{21F35107-964F-44E0-A285-AFD136481459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21F35107-964F-44E0-A285-AFD136481459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21F35107-964F-44E0-A285-AFD136481459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ACC9499-6E0C-4729-9656-EDBFE2E48867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ACC9499-6E0C-4729-9656-EDBFE2E48867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ACC9499-6E0C-4729-9656-EDBFE2E48867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ACC9499-6E0C-4729-9656-EDBFE2E48867}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

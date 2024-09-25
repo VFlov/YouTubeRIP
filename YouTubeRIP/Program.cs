@@ -17,21 +17,21 @@ namespace YouTubeRIP
                         Preparation();
                         break;
                     }
-                    case "2":
+                case "2":
                     {
                         Console.WriteLine("Введите ссылку на видео");
                         string str = Console.ReadLine();
                         FileDownload(str, true);
                         break;
                     }
-                    case "3":
+                case "3":
                     {
                         Console.WriteLine("Введите ссылку на видео");
                         string str = Console.ReadLine();
                         FileDownload(str, false);
                         break;
                     }
-                    case"4":
+                case "4":
                     {
                         Console.WriteLine("Введите название файла видео");
                         string video = Console.ReadLine();
@@ -50,7 +50,6 @@ namespace YouTubeRIP
                 Task.Delay(1000).Wait();
                 Environment.Exit(0);
             }
-            ResultDirectoryName = File.ReadAllText("Path.txt");
             string[] urls = File.ReadAllLines("Urls.txt");
             if (urls.Length == 0)
                 throw new ArgumentException("Urls.txt файл пуст");
@@ -119,7 +118,7 @@ namespace YouTubeRIP
         {
             if (url == null)
                 throw new ArgumentNullException("Строка пустая");
-            Worker worker = new (0, url);
+            Worker worker = new(0, url);
             string fileName = "";
             if (thisVideo)
                 fileName = worker.VideoDownload(url);
@@ -129,20 +128,15 @@ namespace YouTubeRIP
         }
         static void MergerFiles(string video, string audio)
         {
-            Worker worker = new (0, "");
+            Worker worker = new(0, "");
             if (video == null || audio == null)
                 throw new ArgumentNullException("Строка пустая");
-            worker.Merger(video,audio);
+            worker.Merger(video, audio);
             Console.WriteLine("Файл " + video + "готов");
         }
         static bool FirstStart()
         {
             bool thisFirstStart = false;
-            if (!File.Exists("Path.txt"))
-            {
-                thisFirstStart = true;
-                File.Create("Path.txt");
-            }
             if (!File.Exists("Urls.txt"))
             {
                 thisFirstStart = true;
@@ -151,18 +145,17 @@ namespace YouTubeRIP
             if (!Directory.Exists(ResultDirectoryName))
             {
                 thisFirstStart = true;
-                Directory.CreateDirectory("Downloaded&Merged");
-                ResultDirectoryName = "Downloaded&Merged";
+                Directory.CreateDirectory(ResultDirectoryName);
             }
             return thisFirstStart;
         }
         static void TheEndOfEvangelion()
         {
             Console.Clear();
-            Console.SetCursorPosition(0, 0);    
+            Console.SetCursorPosition(0, 0);
             for (int i = 0; i < 100; i++)
                 Console.WriteLine("==> Программа завершила работу. Ссылки закончились <==");
         }
-        public static string ResultDirectoryName = "";
+        public static readonly string ResultDirectoryName = "Downloaded&Merged";
     }
 }
